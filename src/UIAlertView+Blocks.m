@@ -11,8 +11,8 @@
 
 @interface UIAlertView (BlocksInternal)
 
-    @property (nonatomic,copy) AWPAlertViewClickedBlock clickedBlock;
-    @property (nonatomic, copy) AWPAlertViewCancelBlock cancelBlock;
+@property (nonatomic,copy) AWPAlertViewClickedBlock clickedBlock;
+@property (nonatomic, copy) AWPAlertViewCancelBlock cancelBlock;
 
 @end
 
@@ -51,8 +51,12 @@ NSString * const kAWPAlertViewCancelBlockKey = @"kAWPAlertViewCancelBlockKey";
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (self.clickedBlock) {
-        self.clickedBlock(buttonIndex);
+    if (buttonIndex == 0) {
+        [self alertViewCancel:alertView];
+    } else if (buttonIndex > 0) {
+        if (self.clickedBlock) {
+            self.clickedBlock(buttonIndex);
+        }
     }
 }
 
